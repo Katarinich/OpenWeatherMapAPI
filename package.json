@@ -1,10 +1,10 @@
 {
-  "name": "OpenWeatherMap API",
+  "name": "OpenWeatherMapAPI",
   "version": "1.0.0",
   "description": "OpenWeatherMap API",
   "main": "index.js",
   "scripts": {
-    "start": "node server/server.babel.js"
+    "start": "node server.babel.js"
   },
   "repository": {
     "type": "git",
@@ -20,8 +20,10 @@
     "babel-polyfill": "^6.7.4",
     "babel-runtime": "^6.6.1",
     "body-parser": "^1.15.0",
+    "bootstrap": "^3.3.6",
     "es6-promise": "^3.1.2",
     "isomorphic-fetch": "^2.2.1",
+    "jquery": "^2.2.4",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
     "react-redux": "^4.4.1",

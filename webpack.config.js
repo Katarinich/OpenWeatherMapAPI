@@ -5,7 +5,7 @@ var config = {
   devtool: 'cheap-source-map',
   entry: [
     'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true',
-    './client/index'
+    './index'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -29,11 +29,7 @@ var config = {
       {
         test: /\.js$/,
         loader: 'babel',
-        include: [
-          path.join(__dirname, 'client'),
-          path.join(__dirname, 'common'),
-          path.join(__dirname, 'server')
-        ],
+        include: __dirname,
         query: {
           cacheDirectory: true
         },
@@ -57,11 +53,7 @@ var config = {
       {
         test: /\.js$/,
         loader: 'eslint',
-        include: [
-          path.join(__dirname, 'client'),
-          path.join(__dirname, 'common'),
-          path.join(__dirname, 'server')
-        ]
+        include: __dirname
       }
     ]
   },
