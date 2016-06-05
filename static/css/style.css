@@ -1,0 +1,64 @@
+body {
+  font-family: 'Roboto', Arial, sans-serif
+}
+
+.search{
+  margin: 10px 0 0 0;
+}
+
+.info-block {
+  padding: 10px 20px 10px;
+}
+
+.weather-icon-size {
+  width: 80px;
+  height: 80px;
+  margin: 10px;
+}
+
+.additional-icon-size {
+  width: 15px;
+  height: 15px;
+  padding: 2px;
+}
+
+.info-block-header {
+  padding: 0 0 10px;
+}
+
+.info-block-header-right{
+  padding: 10px 0 0 0;
+  float: right;
+  display: inline-block;
+}
+
+.info-block-header-left{
+  display: inline-block;
+}
+
+.info-block-header-left-place{
+  font-size: 22px;
+}
+
+.info-block-additional {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 15px;
+}
+
+.info-block-additional-first{
+  padding: 0 20px 0 0;
+}
+
+.info-block-additional-item-sun{
+  display: inline-block;
+  margin: 0 10px 0 0;
+}
+
+.info-block-content-temperature{
+  display: inline-block;
+  padding: 0 20px 0 0;
+  vertical-align: top;
+  font-size: 100px;
+  line-height: 10px;
+}
