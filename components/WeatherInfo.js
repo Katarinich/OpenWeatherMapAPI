@@ -15,7 +15,7 @@ export default class WeatherInfo extends Component {
           <div className="info-block-content-wrapper-left">
             <div className="info-block-content-temperature">
               <img src={ pathToIcon } className="weather-icon-size"/>
-              <span>{weather.main.temp}{'K'}</span>
+              <span>{Math.round(weather.main.temp)}{'°'}</span>
             </div>
             <div className="info-block-additional info-block-additional-first">
               <div className="info-block-additional-item">

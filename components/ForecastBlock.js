@@ -15,7 +15,7 @@ export default class ForecastBlock extends Component {
           <div className="forecast-block-content-temperature">
             <img src={ pathToIcon } className="weather-icon-size"/>
           </div>
-          <div className="info-block-additional info-block-additional-first">
+          <div className="info-block-additional forecast-block-additional-first">
             <div className="info-block-additional-item">
               {weather.weather[0].description}
             </div>
@@ -38,19 +38,19 @@ export default class ForecastBlock extends Component {
         <div className="forecast-block-content-wrapper-right">
           <div className="day-period">
             <div className="day-time" >{ 'Night' }</div>
-            <div className="day-temp" >{ weather.temp.night }</div>
+            <div className="day-temp" >{ Math.round(weather.temp.night) } {'°'}</div>
           </div>
           <div className="day-period">
             <div className="day-time" >{ 'Morning' }</div>
-            <div className="day-temp" >{ weather.temp.morn }</div>
+            <div className="day-temp" >{ Math.round(weather.temp.morn) } {'°'}</div>
           </div>
           <div className="day-period">
             <div className="day-time" >{ 'Day' }</div>
-            <div className="day-temp" >{ weather.temp.day }</div>
+            <div className="day-temp" >{ Math.round(weather.temp.day) } {'°'}</div>
           </div>
           <div className="day-period">
             <div className="day-time" >{ 'Evening' }</div>
-            <div className="day-temp" >{ weather.temp.eve }</div>
+            <div className="day-temp" >{ Math.round(weather.temp.eve) } {'°'}</div>
           </div>
         </div>
       </div>

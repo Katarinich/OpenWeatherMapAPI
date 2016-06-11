@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 export default class WeatherInfoHeader extends Component {
   render() {
     const { weather, onClick } = this.props
+    const options = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'}
+
     return(
       <div className="info-block-header">
         <div className="info-block-header-left">
@@ -10,7 +12,7 @@ export default class WeatherInfoHeader extends Component {
             <span>{weather.name}{', '} {weather.sys.country} </span>
           </div>
           <div className="info-block-header-left-date">
-            <span>{new Date(weather.dt * 1000).toLocaleString()} </span>
+            <span>{new Date(weather.dt * 1000).toLocaleString('en-US', options)} </span>
           </div>
         </div>
         <div className="info-block-header-right">

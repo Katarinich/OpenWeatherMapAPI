@@ -87,7 +87,8 @@ body {
 }
 
 .info-block-header {
-  padding: 0 0 10px;
+  margin: 0 0 20px;
+  padding: 0 0 15px;
 }
 
 .info-block-header-right{
@@ -112,7 +113,7 @@ body {
 
 .info-block-additional-first{
   padding: 0 20px 0 0;
-  width: 30%;
+  width: 11%;
 }
 
 .info-block-additional-item-sun{
@@ -173,4 +174,9 @@ body {
   text-transform: uppercase;
   font-weight: 400;
   font-size: 25px;
+}
+
+.forecast-block-additional-first {
+  padding: 0 20px 0 0;
+  width: 30%;
 }
