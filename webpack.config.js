@@ -7,6 +7,9 @@ var config = {
     'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true',
     './index'
   ],
+  node: {
+    fs: 'empty'
+  },
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',

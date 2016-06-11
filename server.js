@@ -24,6 +24,7 @@ app.use(webpackHotMiddleware(compiler))
 
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'))
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'))
+app.use('/js', express.static(__dirname + '/node_modules/typeahead.js/dist'))
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'))
 app.use('/css', express.static(__dirname + '/static/css'))
 app.use('/img', express.static(__dirname + '/static/images'))
@@ -56,6 +57,7 @@ function renderFullPage(html, initialState) {
         <link rel="stylesheet" href="/css/style.css">
         <script src="/js/jquery.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/typeahead.jquery.js"></script>
         <title>Anchor</title>
       </head>
       <body>

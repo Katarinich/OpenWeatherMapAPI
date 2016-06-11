@@ -31,7 +31,7 @@ class App extends Component {
         }
 
         {!isFetching && cities &&
-          <SearchBar onClick = { () => this.handleClick() } />
+          <SearchBar cities={ cities } onClick = { () => this.handleClick() } />
         }
 
         { weather &&
