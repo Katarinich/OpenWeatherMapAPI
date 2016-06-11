@@ -10,6 +10,10 @@ import WeatherInfo from '../components/WeatherInfo'
 
 class App extends Component {
 
+  componentDidMount() {
+    this.props.cityActions.fetchCities()
+  }
+
   handleClick() {
     var cityName = document.getElementById('city').value
     this.props.weatherActions.fetchWeather(cityName)
@@ -18,21 +22,35 @@ class App extends Component {
 
   render() {
     const { weather } = this.props.weatherByCity
+    const { isFetching, cities } = this.props.city
     return (
       <div className="container">
-        <SearchBar onClick = { () => this.handleClick() } />
-          { weather &&
-            // <span>
-            //   Last updated at {new Date(lastUpdated).toLocaleTimeString()}.
-            //   {' '}
-            // </span>
-            <WeatherInfo weather={ weather } />
-          }
+
+        {isFetching &&
+          <img src="/img/loading.gif" className="loading-icon-position"/>
+        }
+
+        {!isFetching && cities &&
+          <SearchBar onClick = { () => this.handleClick() } />
+        }
+
+        { weather &&
+          <WeatherInfo weather={ weather } />
+        }
       </div>
   )}
 }
 
 function mapStateToProps(state) {
+  const { city } = state
+
+  if(!city.cities) return {
+    ...state,
+    cities: {
+      isFetching: true
+    }
+  }
+
   return state
 }
 

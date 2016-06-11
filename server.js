@@ -28,6 +28,10 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'))
 app.use('/css', express.static(__dirname + '/static/css'))
 app.use('/img', express.static(__dirname + '/static/images'))
 
+app.get('/api/cities', function(req, res) {
+  res.sendFile(__dirname + '/city.list.json')
+})
+
 app.use(handleRender)
 
 function handleRender(req, res) {
