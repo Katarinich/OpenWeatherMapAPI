@@ -1,27 +1,16 @@
 import React, { Component } from 'react'
 
+import WeatherInfoHeader from './WeatherInfoHeader'
+
 export default class WeatherInfo extends Component {
   render() {
     const { weather } = this.props
     const pathToIcon = `/img/${weather.weather[0].main}.svg`
     return(
       <div className="info-block">
-        <div className="info-block-header">
-          <div className="info-block-header-left">
-            <div className="info-block-header-left-place">
-              <span>{weather.name}{', '} {weather.sys.country} </span>
-            </div>
-            <div className="info-block-header-left-date">
-              <span>{new Date(weather.dt * 1000).toLocaleString()} </span>
-            </div>
-          </div>
-          <div className="info-block-header-right">
-            {'Forecast: '}
-            <a href="#">{'3 days '}</a>
-            <a href="#">{' 7 days '}</a>
-            <a href="#">{' 14 days'}</a>
-          </div>
-        </div>
+
+        <WeatherInfoHeader weather={ weather } onClick={ e => this.props.onClick(e) }/>
+
         <div className="info-block-content">
           <div className="info-block-content-wrapper-left">
             <div className="info-block-content-temperature">

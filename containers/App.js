@@ -7,6 +7,7 @@ import * as cityActions from '../actions/CityActions'
 
 import SearchBar from '../components/SearchBar'
 import WeatherInfo from '../components/WeatherInfo'
+import ForecastInfo from '../components/ForecastInfo'
 
 class App extends Component {
 
@@ -14,14 +15,19 @@ class App extends Component {
     this.props.cityActions.fetchCities()
   }
 
-  handleClick() {
+  handleSearch() {
     var cityName = document.getElementById('city').value
     this.props.weatherActions.fetchWeather(cityName)
     this.props.cityActions.selectCity(cityName)
   }
 
+  handleForecast(e) {
+    var cityName = document.getElementById('city').value
+    this.props.weatherActions.fetchForecast(cityName, e.target.id)
+  }
+
   render() {
-    const { weather, error } = this.props.weatherByCity
+    const { weather, error, forecast } = this.props.weatherByCity
     const { isFetching, cities } = this.props.city
     return (
       <div className="container">
@@ -31,7 +37,7 @@ class App extends Component {
         }
 
         { !isFetching && cities &&
-          <SearchBar cities={ cities } onClick = { () => this.handleClick() } />
+          <SearchBar cities={ cities } onClick = { () => this.handleSearch() } />
         }
 
         { error &&
@@ -39,7 +45,11 @@ class App extends Component {
         }
 
         { weather &&
-          <WeatherInfo weather={ weather } />
+          <WeatherInfo weather={ weather } onClick = { e => this.handleForecast(e) }/>
+        }
+
+        { forecast &&
+          <ForecastInfo days= { forecast.list } />
         }
       </div>
   )}

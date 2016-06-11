@@ -29,6 +29,7 @@ function weatherByCity(state = {
 }, action){
   switch (action.type) {
     case types.REQUEST_WEATHER:
+    case types.REQUEST_FORECAST:
       return {
         isFetching: true
       }
@@ -36,6 +37,12 @@ function weatherByCity(state = {
       return {
         isFetching: false,
         weather: action.weather
+      }
+    case types.RECEIVE_FORECAST:
+      return {
+        isFetching: false,
+        forecast: action.forecast,
+        days: action.days
       }
     case types.FAILURE_WEATHER:
       return {

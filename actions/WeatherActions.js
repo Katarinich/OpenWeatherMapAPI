@@ -25,6 +25,24 @@ function failureWeather(error) {
   }
 }
 
+function requestForecast(city, days) {
+  return {
+    type: types.REQUEST_FORECAST,
+    city,
+    days
+  }
+}
+
+function receiveForecast(city, forecast, days) {
+  return {
+    type: types.RECEIVE_FORECAST,
+    city,
+    forecast,
+    days,
+    receivedAt: Date.now()
+  }
+}
+
 export function fetchWeather(city) {
   return dispatch => {
     dispatch(requestWeather(city))
@@ -33,6 +51,18 @@ export function fetchWeather(city) {
       .then(function(json) {
         if(json.cod != '200') dispatch(failureWeather(json))
         else dispatch(receiveWeather(city, json))
+      })
+  }
+}
+
+export function fetchForecast(city, days) {
+  return dispatch => {
+    dispatch(requestForecast(city, days))
+    return fetch(`http://api.openweathermap.org/data/2.5/forecast/daily?q=${city}&cnt=${days}&appid=33178d46dea4c98a92d98aa6ea4ebc24`)
+      .then(response => response.json())
+      .then(function(json) {
+        if(json.cod != '200') dispatch(failureWeather(json))
+        else dispatch(receiveForecast(city, json, days))
       })
   }
 }
