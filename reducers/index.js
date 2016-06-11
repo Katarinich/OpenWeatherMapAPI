@@ -37,6 +37,11 @@ function weatherByCity(state = {
         isFetching: false,
         weather: action.weather
       }
+    case types.FAILURE_WEATHER:
+      return {
+        isFetching: false,
+        error: action.error
+      }
     default:
       return state
   }

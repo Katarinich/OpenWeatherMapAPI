@@ -66,6 +66,10 @@ body {
   margin: 0;
 }
 
+.alert-margin {
+  margin: 10px 0px;
+}
+
 .info-block {
   padding: 10px 20px 10px;
 }

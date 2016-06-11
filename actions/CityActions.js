@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-fetch'
+
 import * as types from '../constants/actionTypes'
 
 export function selectCity(city) {

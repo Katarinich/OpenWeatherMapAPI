@@ -21,17 +21,21 @@ class App extends Component {
   }
 
   render() {
-    const { weather } = this.props.weatherByCity
+    const { weather, error } = this.props.weatherByCity
     const { isFetching, cities } = this.props.city
     return (
       <div className="container">
 
-        {isFetching &&
+        { isFetching &&
           <img src="/img/loading.gif" className="loading-icon-position"/>
         }
 
-        {!isFetching && cities &&
+        { !isFetching && cities &&
           <SearchBar cities={ cities } onClick = { () => this.handleClick() } />
+        }
+
+        { error &&
+          <div className="alert alert-danger alert-margin" role="alert" >{ error }</div>
         }
 
         { weather &&

@@ -18,11 +18,21 @@ function receiveWeather(city, weather) {
   }
 }
 
+function failureWeather(error) {
+  return {
+    type: types.FAILURE_WEATHER,
+    error: error.message
+  }
+}
+
 export function fetchWeather(city) {
   return dispatch => {
     dispatch(requestWeather(city))
     return fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=33178d46dea4c98a92d98aa6ea4ebc24`)
       .then(response => response.json())
-      .then(json => dispatch(receiveWeather(city, json)))
+      .then(function(json) {
+        if(json.cod != '200') dispatch(failureWeather(json))
+        else dispatch(receiveWeather(city, json))
+      })
   }
 }
