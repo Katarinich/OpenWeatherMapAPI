@@ -2,9 +2,25 @@ import fetch from 'isomorphic-fetch'
 
 import * as types from '../constants/actionTypes'
 
-export function selectCity(city) {
+function setSelectedCity(city) {
   return {
     type: types.SELECT_CITY,
+    city
+  }
+}
+
+export function selectCity(city, cities) {
+  return dispatch => {
+    if(typeof city == 'string')
+      city = cities.find(x => x.name.toLowerCase() == city.toLowerCase())
+
+    dispatch(setSelectedCity(city))
+  }
+}
+
+export function changeCityFavoriteStatus(city) {
+  return {
+    type: types.CHANGE_CITY_FAVORITE_STATUS,
     city
   }
 }

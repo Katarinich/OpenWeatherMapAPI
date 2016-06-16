@@ -16,19 +16,25 @@ class App extends Component {
   }
 
   handleSearch() {
+    var { selectedCity } = this.props.city
     var cityName = document.getElementById('city').value
-    this.props.weatherActions.fetchWeather(cityName)
-    this.props.cityActions.selectCity(cityName)
+    const { fetchWeatherById,  fetchWeatherByName} = this.props.weatherActions
+
+    if(selectedCity && (selectedCity.name.toLowerCase() != cityName.toLowerCase()))
+      selectedCity = undefined
+
+    selectedCity ? fetchWeatherById(selectedCity) : fetchWeatherByName(cityName)
   }
 
   handleForecast(e) {
-    var cityName = document.getElementById('city').value
-    this.props.weatherActions.fetchForecast(cityName, e.target.id)
+    this.props.weatherActions.fetchForecast(this.props.city.selectedCity, e.target.id)
   }
+
+
 
   render() {
     const { weather, error, forecast } = this.props.weatherByCity
-    const { isFetching, cities } = this.props.city
+    const { isFetching, cities, selectedCity } = this.props.city
     return (
       <div className="container">
 
@@ -37,7 +43,10 @@ class App extends Component {
         }
 
         { !isFetching && cities &&
-          <SearchBar cities={ cities } onClick = { () => this.handleSearch() } />
+          <SearchBar
+            cities={ cities }
+            onClick = { () => this.handleSearch() }
+            onSelect = { city => this.props.cityActions.selectCity(city) } />
         }
 
         { error &&
@@ -45,7 +54,10 @@ class App extends Component {
         }
 
         { weather &&
-          <WeatherInfo weather={ weather } onClick = { e => this.handleForecast(e) }/>
+          <WeatherInfo
+            weather={ weather } 
+            selectedCity={ selectedCity }
+            onClick={ e => this.handleForecast(e) }/>
         }
 
         { forecast &&

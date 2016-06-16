@@ -58,7 +58,7 @@ function renderFullPage(html, initialState) {
         <script src="/js/jquery.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/typeahead.jquery.js"></script>
-        <title>Anchor</title>
+        <title>OpenWeatherMapApiClient</title>
       </head>
       <body>
         <div id="root">${html}</div>

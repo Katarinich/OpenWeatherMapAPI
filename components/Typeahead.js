@@ -3,6 +3,7 @@ import  Handlebars from 'handlebars'
 
 export default class Typeahead extends Component {
   componentDidMount() {
+    const { onSelect } = this.props
     $('#city').typeahead({
       hint: true,
       highlight: true,
@@ -17,7 +18,11 @@ export default class Typeahead extends Component {
       }
     })
 
-    document.getElementsByClassName('twitter-typeahead')[0].style.display = 'block';
+    document.getElementsByClassName('twitter-typeahead')[0].style.display = 'block'
+
+    $('.typeahead').bind('typeahead:select', function(ev, suggestion) {
+      onSelect(suggestion)
+    })
   }
 
   substringMatcher(strs) {
