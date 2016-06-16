@@ -18,10 +18,18 @@ export function selectCity(city, cities) {
   }
 }
 
-export function changeCityFavoriteStatus(city) {
+export function changeFavorites(favorites) {
   return {
-    type: types.CHANGE_CITY_FAVORITE_STATUS,
-    city
+    type: types.CHANGE_FAVORITES,
+    favorites
+  }
+}
+
+export function loadFavoritesList(favorites)
+{
+  return {
+    type: types.LOAD_FAVORITES_LIST,
+    favorites
   }
 }
 

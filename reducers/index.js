@@ -19,6 +19,12 @@ function city(state = {}, action){
         isFetching: false,
         cities: action.cities
       }
+    case types.LOAD_FAVORITES_LIST:
+    case types.CHANGE_FAVORITES:
+      return {
+        ...state,
+        favorites: action.favorites
+      }
     default:
       return state
   }

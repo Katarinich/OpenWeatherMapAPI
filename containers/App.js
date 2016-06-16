@@ -13,6 +13,9 @@ class App extends Component {
 
   componentDidMount() {
     this.props.cityActions.fetchCities()
+
+    var favorites = JSON.parse(localStorage.getItem('favorites')) || []
+    this.props.cityActions.loadFavoritesList(favorites)
   }
 
   handleSearch() {
@@ -30,11 +33,9 @@ class App extends Component {
     this.props.weatherActions.fetchForecast(this.props.city.selectedCity, e.target.id)
   }
 
-
-
   render() {
     const { weather, error, forecast } = this.props.weatherByCity
-    const { isFetching, cities, selectedCity } = this.props.city
+    const { isFetching, cities, selectedCity, favorites } = this.props.city
     return (
       <div className="container">
 
@@ -55,8 +56,10 @@ class App extends Component {
 
         { weather &&
           <WeatherInfo
-            weather={ weather } 
+            weather={ weather }
             selectedCity={ selectedCity }
+            favorites={ favorites }
+            changeFavorites={ favorites => this.props.cityActions.changeFavorites(favorites) }
             onClick={ e => this.handleForecast(e) }/>
         }
 
