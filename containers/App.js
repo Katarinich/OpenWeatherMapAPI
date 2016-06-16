@@ -46,6 +46,8 @@ class App extends Component {
         { !isFetching && cities &&
           <SearchBar
             cities={ cities }
+            favorites={ favorites }
+            selectedCity={ selectedCity }
             onClick = { () => this.handleSearch() }
             onSelect = { city => this.props.cityActions.selectCity(city) } />
         }
