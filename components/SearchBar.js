@@ -2,16 +2,25 @@ import React, { Component } from 'react'
 import Typeahead from './Typeahead'
 
 export default class SearchBar extends Component {
+  constructor(props) {
+    super(props)
+    this.handleClick = this.handleClick.bind(this)
+  }
+
   handleClick(city) {
     const { onSelect, onClick } = this.props
     onSelect(city)
+
+    document.getElementById('city').value = city.name
+
     onClick()
   }
 
   render(){
     const { onClick, cities, onSelect, selectedCity, favorites } = this.props
+    var self = this
     var favoritesList = favorites.map(function(city) {
-      return <li><a href="#" onClick={ () => this.handleClick(city) }>{city.name}</a></li>
+      return <li key={ city.id }><a href="#" onClick={ () => self.handleClick(city) }>{city.name}</a></li>
     })
 
     return(
@@ -24,7 +33,7 @@ export default class SearchBar extends Component {
           <ul className="dropdown-menu">
             { favoritesList }
             <li role="separator" className="divider"></li>
-            <li><img src="/img/Favorites-Add.svg" />Add city to favorites by clicking icon by near</li>
+            <li><a><img src="/img/Favorites-Add.svg" />Add city to favorites by clicking icon by near</a></li>
           </ul>
         </div>
 

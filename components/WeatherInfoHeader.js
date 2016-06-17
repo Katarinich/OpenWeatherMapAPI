@@ -5,7 +5,7 @@ export default class WeatherInfoHeader extends Component {
   handleClickAdd() {
     const { selectedCity, changeFavorites } = this.props
 
-    var favorites = this.props.favorites.splice(0, 0)
+    var favorites = this.props.favorites.slice(0, this.props.favorites.length)
     favorites.push(selectedCity)
     localStorage.setItem('favorites', JSON.stringify(favorites))
 

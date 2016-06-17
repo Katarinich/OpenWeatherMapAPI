@@ -9,6 +9,9 @@ export default class ForecastInfo extends Component {
     })
     return(
       <div className="forecast-info">
+        <div className="info-block">
+          <h1> Forecast for { days.count } in
+        </div>
         { days }
       </div>
     )
