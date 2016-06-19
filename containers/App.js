@@ -66,8 +66,12 @@ class App extends Component {
         }
 
         { forecast &&
-          <ForecastInfo days= { forecast.list } />
+          <ForecastInfo
+            days={ forecast.list }
+            cityName={ forecast.city.name }
+            onClick={ () => this.handleSearch() }/>
         }
+
       </div>
   )}
 }

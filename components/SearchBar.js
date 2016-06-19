@@ -8,9 +8,7 @@ export default class SearchBar extends Component {
   }
 
   handleClick(city) {
-    const { onSelect, onClick } = this.props
-    onSelect(city)
-
+    const { onClick } = this.props
     document.getElementById('city').value = city.name
 
     onClick()
@@ -27,7 +25,7 @@ export default class SearchBar extends Component {
       <div className="search input-group">
         <div className="input-group-btn">
           <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {selectedCity ? selectedCity.name + " " : " "}
+            {selectedCity ? selectedCity.name + ' ' : ' '}
             <span className="caret"></span>
           </button>
           <ul className="dropdown-menu">
