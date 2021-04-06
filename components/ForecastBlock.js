@@ -2,17 +2,17 @@ import React, { Component } from 'react'
 import CommonWeatherProperty from './CommonWeatherProperty'
 import ForecastDayPeriod from './ForecastDayPeriod'
 import TemperatureBlock from './TemperatureBlock'
+import {dateFactor, forecastOptions} from "../constants/constantValues"
 
 export default class ForecastBlock extends Component {
   render() {
     const { weather } = this.props
     const pathToIcon = `/img/${weather.weather[0].main}.svg`
-    const options = { weekday: 'long', month: 'long', day: 'numeric' }
 
     return(
       <div className="info-block" >
         <div className="forecast-header">
-          {new Date(weather.dt * 1000).toLocaleString('en-US', options)}
+          {new Date(weather.dt * dateFactor).toLocaleString('en-US', forecastOptions)}
         </div>
         <div className="forecast-block-content-wrapper-left">
           <TemperatureBlock pathToIcon={pathToIcon} description={weather.weather[0].description}/>

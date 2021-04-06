@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {dateFactor, weatherOptions} from "../constants/constantValues"
 
 export default class WeatherInfoHeader extends Component {
 
@@ -15,7 +16,7 @@ export default class WeatherInfoHeader extends Component {
   handleClickRemove() {
     const { selectedCity, changeFavorites } = this.props
 
-    let favorites = this.props.favorites.filter(x => x.id != selectedCity.id)
+    let favorites = this.props.favorites.filter(x => x.id !== selectedCity.id)
     localStorage.setItem('favorites', JSON.stringify(favorites))
 
     changeFavorites(favorites)
@@ -23,8 +24,7 @@ export default class WeatherInfoHeader extends Component {
 
   render() {
     const { weather, onClick, favorites } = this.props
-    const options = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'}
-    let isFavorite = favorites.find(x => x.id == weather.id) ? true : false
+    let isFavorite = !!favorites.find(x => x.id === weather.id)
 
     return(
       <div className="info-block-header">
@@ -37,7 +37,7 @@ export default class WeatherInfoHeader extends Component {
 
           </div>
           <div className="info-block-header-left-date">
-            <span>{new Date(weather.dt * 1000).toLocaleString('en-US', options)} </span>
+            <span>{new Date(weather.dt * dateFactor).toLocaleString('en-US', weatherOptions)} </span>
           </div>
         </div>
         <div className="info-block-header-right">

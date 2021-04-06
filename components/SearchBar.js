@@ -12,7 +12,6 @@ export default class SearchBar extends Component {
 
   handleClick(city) {
     const { onClick, onSelect } = this.props
-    //document.getElementById("city").value = city.name
 
     onSelect(city)
 

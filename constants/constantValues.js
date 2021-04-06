@@ -1,6 +1,6 @@
 export const dateFactor = 1000
 
-export const options = {
+export const weatherOptions = {
     weekday: 'long',
     month: 'long',
     day: 'numeric',
@@ -8,3 +8,4 @@ export const options = {
     minute: 'numeric',
     second: 'numeric'
 }
+export const forecastOptions = { weekday: 'long', month: 'long', day: 'numeric' }
