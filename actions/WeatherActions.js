@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch'
 
 import * as types from '../constants/actionTypes'
 import { selectCity } from './CityActions'
+import {apiKey} from "../constants/secretKeys";
 
 function requestWeather(city) {
   return {
@@ -47,7 +48,7 @@ function receiveForecast(city, forecast, days) {
 export function fetchWeatherById(city) {
   return dispatch => {
     dispatch(requestWeather(city))
-    return fetch(`http://api.openweathermap.org/data/2.5/weather?id=${city.id}&units=metric&appid=33178d46dea4c98a92d98aa6ea4ebc24`)
+    return fetch(`http://api.openweathermap.org/data/2.5/weather?id=${city.id}&units=metric&appid=${apiKey}`)
       .then(response => response.json())
       .then(function(json) {
         if(json.cod != '200') {
@@ -61,7 +62,7 @@ export function fetchWeatherById(city) {
 export function fetchWeatherByName(cityName) {
   return dispatch => {
     dispatch(requestWeather(cityName))
-    return fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=33178d46dea4c98a92d98aa6ea4ebc24`)
+    return fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`)
       .then(response => response.json())
       .then(function(json) {
         if(json.cod != '200') dispatch(failureWeather(json))
@@ -83,7 +84,7 @@ export function fetchWeatherByName(cityName) {
 export function fetchForecast(city, days) {
   return dispatch => {
     dispatch(requestForecast(city, days))
-    return fetch(`http://api.openweathermap.org/data/2.5/forecast/daily?id=${city.id}&cnt=${days}&units=metric&appid=33178d46dea4c98a92d98aa6ea4ebc24`)
+    return fetch(`http://api.openweathermap.org/data/2.5/forecast/daily?id=${city.id}&cnt=${days}&units=metric&appid=${apiKey}`)
       .then(response => response.json())
       .then(function(json) {
         if(json.cod != '200') dispatch(failureWeather(json))
