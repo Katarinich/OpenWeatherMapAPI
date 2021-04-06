@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
-import  Handlebars from 'handlebars'
+import Handlebars from 'handlebars'
+import findMatches from '../helper/findMatches'
 
-export default class Typeahead extends Component {
+
+
+class Typeahead extends Component {
   componentDidMount() {
-    const { onSelect } = this.props
+    const { onSelect, onChange } = this.props
     $('#city').typeahead({
       hint: true,
       highlight: true,
@@ -12,22 +15,23 @@ export default class Typeahead extends Component {
     {
       name: 'cities',
       display: 'name',
-      source: this.substringMatcher(this.props.cities),
+      source: /*this.substringMatcher(this.props.cities)*/findMatches.bind(this),
       templates: {
         suggestion: Handlebars.compile('<div>{{name}}, {{country}}</div>')
-      }
+    }
     })
 
-    document.getElementsByClassName('twitter-typeahead')[0].style.display = 'block'
+    //document.getElementsByClassName('twitter-typeahead')[0].style.display = 'block'
+    $('.twitter-typeahead').css('display', 'block')
 
-    $('.typeahead').bind('typeahead:select', function(ev, suggestion) {
-      onSelect(suggestion)
-    })
+    $('.typeahead').bind('typeahead:select', (ev, suggestion) => onSelect(suggestion))
+
+    $('.typeahead').bind('input', e => onChange(e.target.value))
   }
 
-  substringMatcher(strs) {
+  /*substringMatcher(strs) {
     return function findMatches(q, cb) {
-      var matches, substrRegex
+      let matches, substrRegex
 
       matches = []
 
@@ -40,13 +44,16 @@ export default class Typeahead extends Component {
       })
       cb(matches)
     }
-  }
+  }*/
 
   render() {
     return <input
       className="typeahead form-control"
       type="text"
       placeholder="Search for..."
+      value={this.props.inputText}
       id="city" />
   }
 }
+
+export default Typeahead

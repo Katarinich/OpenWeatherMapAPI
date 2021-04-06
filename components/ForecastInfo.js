@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 
 import ForecastBlock from './ForecastBlock'
 
+import PropTypes from "prop-types"
+
 export default class ForecastInfo extends Component {
   render() {
     const { cityName, onClick } = this.props
 
-    var days = this.props.days.map(function(day) {
+    let days = this.props.days.map(function(day) {
       return <ForecastBlock key={day.dt} weather={ day } />
     })
 
@@ -22,4 +24,10 @@ export default class ForecastInfo extends Component {
       </div>
     )
   }
+}
+
+ForecastInfo.propTypes = {
+  cityName: PropTypes.string,
+  onClick: PropTypes.func,
+  days: PropTypes.array
 }
