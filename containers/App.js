@@ -21,13 +21,6 @@ class App extends Component {
   handleSearch() {
     let { selectedCity, inputText } = this.props.city
     const { fetchWeatherById, fetchWeatherByName } = this.props.weatherActions
-    /*let cityName = document.getElementById('city').value
-    const { fetchWeatherById,  fetchWeatherByName} = this.props.weatherActions
-
-    if(selectedCity && (selectedCity.name.toLowerCase() != cityName.toLowerCase()))
-      selectedCity = undefined
-
-    selectedCity ? fetchWeatherById(selectedCity) : fetchWeatherByName(cityName)*/
 
     if (selectedCity !== undefined && selectedCity.name === inputText) fetchWeatherById(selectedCity)
     else fetchWeatherByName(inputText || "")
@@ -83,26 +76,6 @@ class App extends Component {
       </div>
   )}
 }
-
-/*function mapStateToProps(state) {
-  const { city } = state
-
-  if(!city.cities) return {
-    ...state,
-    cities: {
-      isFetching: true
-    }
-  }
-
-  return state
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    weatherActions: bindActionCreators(weatherActions, dispatch),
-    cityActions: bindActionCreators(cityActions, dispatch)
-  }
-}*/
 
 export default connect(
     state => {
