@@ -6,6 +6,7 @@ function city(state = {}, action){
     case types.SELECT_CITY:
       return {
         ...state,
+        inputText: action.city.name,
         selectedCity: action.city
       }
     case types.REQUEST_CITIES:
@@ -24,6 +25,11 @@ function city(state = {}, action){
       return {
         ...state,
         favorites: action.favorites
+      }
+    case types.CHANGE_INPUT_TEXT:
+      return {
+        ...state,
+        inputText: action.text
       }
     default:
       return state

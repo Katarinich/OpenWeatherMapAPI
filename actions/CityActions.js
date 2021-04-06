@@ -9,6 +9,13 @@ function setSelectedCity(city) {
   }
 }
 
+export function changeInputText(text) {
+  return {
+    type: types.CHANGE_INPUT_TEXT,
+    text
+  }
+}
+
 export function selectCity(city, cities) {
   return dispatch => {
     if(typeof city == 'string')

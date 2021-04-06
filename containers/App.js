@@ -14,19 +14,23 @@ class App extends Component {
   componentDidMount() {
     this.props.cityActions.fetchCities()
 
-    var favorites = JSON.parse(localStorage.getItem('favorites')) || []
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || []
     this.props.cityActions.loadFavoritesList(favorites)
   }
 
   handleSearch() {
-    var { selectedCity } = this.props.city
-    var cityName = document.getElementById('city').value
+    let { selectedCity, inputText } = this.props.city
+    const { fetchWeatherById, fetchWeatherByName } = this.props.weatherActions
+    /*let cityName = document.getElementById('city').value
     const { fetchWeatherById,  fetchWeatherByName} = this.props.weatherActions
 
     if(selectedCity && (selectedCity.name.toLowerCase() != cityName.toLowerCase()))
       selectedCity = undefined
 
-    selectedCity ? fetchWeatherById(selectedCity) : fetchWeatherByName(cityName)
+    selectedCity ? fetchWeatherById(selectedCity) : fetchWeatherByName(cityName)*/
+
+    if (selectedCity !== undefined && selectedCity.name === inputText) fetchWeatherById(selectedCity)
+    else fetchWeatherByName(inputText || "")
   }
 
   handleForecast(e) {
@@ -35,7 +39,7 @@ class App extends Component {
 
   render() {
     const { weather, error, forecast } = this.props.weatherByCity
-    const { isFetching, cities, selectedCity, favorites } = this.props.city
+    const { isFetching, cities, selectedCity, favorites, inputText } = this.props.city
     return (
       <div className="container">
 
@@ -48,8 +52,12 @@ class App extends Component {
             cities={ cities }
             favorites={ favorites }
             selectedCity={ selectedCity }
-            onClick = { () => this.handleSearch() }
-            onSelect = { city => this.props.cityActions.selectCity(city) } />
+            onClick={ () => this.handleSearch() }
+            onSelect={ city => this.props.cityActions.selectCity(city) }
+            onChange={ text => this.props.cityActions.changeInputText(text) }
+            inputText={ inputText || '' }
+          />
+
         }
 
         { error &&
@@ -76,7 +84,7 @@ class App extends Component {
   )}
 }
 
-function mapStateToProps(state) {
+/*function mapStateToProps(state) {
   const { city } = state
 
   if(!city.cities) return {
@@ -94,6 +102,19 @@ function mapDispatchToProps(dispatch) {
     weatherActions: bindActionCreators(weatherActions, dispatch),
     cityActions: bindActionCreators(cityActions, dispatch)
   }
-}
+}*/
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(
+    state => {
+      return {
+        ...state,
+        cities: { isFetching: !state.city.cities}
+      }
+    },
+    dispatch => {
+      return {
+        weatherActions: bindActionCreators(weatherActions, dispatch),
+        cityActions: bindActionCreators(cityActions, dispatch)
+      }
+    }
+)(App)
