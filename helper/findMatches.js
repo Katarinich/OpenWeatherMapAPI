@@ -1,14 +1,10 @@
 export default function findMatches(q, cb) {
-    let matches, substrRegex
+	let matches = []
+	let substrRegex = new RegExp(q, 'i')
 
-    matches = []
+	this.props.cities.forEach((e) => {
+		substrRegex.test(e.name) && matches.push(e)
+	})
 
-    substrRegex = new RegExp(q, 'i')
-
-    $.each(this.props.cities, function(i, str) {
-        if (substrRegex.test(str.name)) {
-            matches.push(str)
-        }
-    })
-    cb(matches)
+	cb(matches)
 }
