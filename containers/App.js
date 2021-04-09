@@ -11,18 +11,16 @@ import ForecastInfo from '../components/ForecastInfo'
 
 class App extends Component {
 	componentDidMount() {
-		this.props.cityActions.fetchCities()
+		const { cityActions } = this.props
+		cityActions.fetchCities()
 
 		let favorites = JSON.parse(localStorage.getItem('favorites')) || []
-		this.props.cityActions.loadFavoritesList(favorites)
+		cityActions.loadFavoritesList(favorites)
 	}
 
 	handleSearch() {
 		let { selectedCity, inputText } = this.props.city
-		const {
-			fetchWeatherById,
-			fetchWeatherByName
-		} = this.props.weatherActions
+		const { fetchWeatherById, fetchWeatherByName } = this.props.weatherActions
 
 		if (selectedCity !== undefined && selectedCity.name === inputText)
 			fetchWeatherById(selectedCity)
@@ -30,10 +28,8 @@ class App extends Component {
 	}
 
 	handleForecast(e) {
-		this.props.weatherActions.fetchForecast(
-			this.props.city.selectedCity,
-			e.target.id
-		)
+		const { weatherActions, city } = this.props
+		weatherActions.fetchForecast(city.selectedCity, e.target.id)
 	}
 
 	render() {
@@ -43,15 +39,13 @@ class App extends Component {
 			cities,
 			selectedCity,
 			favorites,
-			inputText
+			inputText,
+			cityActions
 		} = this.props.city
 		return (
 			<div className="container">
 				{isFetching && (
-					<img
-						src="/img/loading.gif"
-						className="loading-icon-position"
-					/>
+					<img src="/img/loading.gif" className="loading-icon-position" />
 				)}
 
 				{!isFetching && cities && (
@@ -59,22 +53,15 @@ class App extends Component {
 						cities={cities}
 						favorites={favorites}
 						selectedCity={selectedCity}
-						onClick={() => this.handleSearch()}
-						onSelect={(city) =>
-							this.props.cityActions.selectCity(city)
-						}
-						onChange={(text) =>
-							this.props.cityActions.changeInputText(text)
-						}
+						onClick={this.handleSearch}
+						onSelect={cityActions.selectCity}
+						onChange={cityActions.changeInputText}
 						inputText={inputText || ''}
 					/>
 				)}
 
 				{error && (
-					<div
-						className="alert alert-danger alert-margin"
-						role="alert"
-					>
+					<div className="alert alert-danger alert-margin" role="alert">
 						{error}
 					</div>
 				)}
@@ -84,10 +71,8 @@ class App extends Component {
 						weather={weather}
 						selectedCity={selectedCity}
 						favorites={favorites}
-						changeFavorites={(favorites) =>
-							this.props.cityActions.changeFavorites(favorites)
-						}
-						onClick={(e) => this.handleForecast(e)}
+						changeFavorites={cityActions.changeFavorites}
+						onClick={this.handleForecast}
 					/>
 				)}
 
@@ -95,7 +80,7 @@ class App extends Component {
 					<ForecastInfo
 						days={forecast.list}
 						cityName={forecast.city.name}
-						onClick={() => this.handleSearch()}
+						onClick={this.handleSearch}
 					/>
 				)}
 			</div>

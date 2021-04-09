@@ -11,11 +11,9 @@ export default class SearchBar extends Component {
 	}
 
 	handleClick(city) {
-		const { onClick, onSelect } = this.props
+		const { onSelect } = this.props
 
 		onSelect(city)
-
-		setTimeout(onClick, 0)
 	}
 
 	render() {
@@ -28,11 +26,14 @@ export default class SearchBar extends Component {
 			onChange,
 			inputText
 		} = this.props
-		let self = this
 		let favoritesList = favorites.map((city) => {
 			return (
 				<li key={city.id}>
-					<a href="#" onClick={() => self.handleClick(city)}>
+					<a
+						href="#"
+						onMouseDown={() => this.handleClick(city)}
+						onMouseUp={onClick}
+					>
 						{city.name}
 					</a>
 				</li>
@@ -54,11 +55,7 @@ export default class SearchBar extends Component {
 				/>
 
 				<span className="input-group-btn">
-					<button
-						className="btn btn-default"
-						type="button"
-						onClick={() => onClick()}
-					>
+					<button className="btn btn-default" type="button" onClick={onClick}>
 						Search
 					</button>
 				</span>

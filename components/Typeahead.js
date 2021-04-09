@@ -16,9 +16,7 @@ class Typeahead extends Component {
 				display: 'name',
 				source: findMatches.bind(this),
 				templates: {
-					suggestion: Handlebars.compile(
-						'<div>{{name}}, {{country}}</div>'
-					)
+					suggestion: Handlebars.compile('<div>{{name}}, {{country}}</div>')
 				}
 			}
 		)
@@ -33,12 +31,13 @@ class Typeahead extends Component {
 	}
 
 	render() {
+		const { inputText } = this.props
 		return (
 			<input
 				className="typeahead form-control"
 				type="text"
 				placeholder="Search for..."
-				value={this.props.inputText}
+				value={inputText}
 				id="city"
 			/>
 		)
