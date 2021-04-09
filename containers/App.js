@@ -22,9 +22,12 @@ class App extends Component {
 		let { selectedCity, inputText } = this.props.city
 		const { fetchWeatherById, fetchWeatherByName } = this.props.weatherActions
 
-		if (selectedCity !== undefined && selectedCity.name === inputText)
+		if (selectedCity !== undefined && selectedCity.name === inputText) {
 			fetchWeatherById(selectedCity)
-		else fetchWeatherByName(inputText || '')
+		}
+		else {
+			fetchWeatherByName(inputText || '')
+		}
 	}
 
 	handleForecast(e) {
