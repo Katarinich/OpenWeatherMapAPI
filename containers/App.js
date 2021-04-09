@@ -11,11 +11,13 @@ import ForecastInfo from '../components/ForecastInfo'
 
 class App extends Component {
 	componentDidMount() {
-		const { cityActions } = this.props
-		cityActions.fetchCities()
+		const { fetchCities, loadFavoritesList } = this.props.cityActions
+		fetchCities()
 
 		let favorites = JSON.parse(localStorage.getItem('favorites')) || []
-		cityActions.loadFavoritesList(favorites)
+		loadFavoritesList(favorites)
+		this.handleSearch = this.handleSearch.bind(this)
+		this.handleForecast = this.handleForecast.bind(this)
 	}
 
 	handleSearch() {
@@ -42,9 +44,10 @@ class App extends Component {
 			cities,
 			selectedCity,
 			favorites,
-			inputText,
-			cityActions
+			inputText
 		} = this.props.city
+		const { cityActions } = this.props
+
 		return (
 			<div className="container">
 				{isFetching && (
