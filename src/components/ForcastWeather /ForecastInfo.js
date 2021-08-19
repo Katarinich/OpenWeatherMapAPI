@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import ForecastBlock from './ForecastBlock'
 
 export default class ForecastInfo extends Component {

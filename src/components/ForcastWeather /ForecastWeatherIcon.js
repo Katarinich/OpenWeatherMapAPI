@@ -1,7 +1,5 @@
 import React from 'react'
-
 import PropTypes from 'prop-types'
-
 import degreesIcon from '../../constants'
 
 export default class ForecastWeatherIcon extends React.Component {

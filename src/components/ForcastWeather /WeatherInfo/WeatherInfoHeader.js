@@ -1,16 +1,14 @@
 import React, { Component } from 'react'
-import LocalStorageService from '../../../../storage-service'
 import {typeDate, forecastOptions} from '../../../constants'
+import LocalStorageService from '../../../../storage-service'
 
 export default class WeatherInfoHeader extends Component {
 
   handleClickAdd() {
     const { selectedCity, changeFavorites } = this.props
 
-    // var favorites = this.props.favorites.slice(0, this.props.favorites.length)
-    // favorites.push(selectedCity)
     let favorites = [...this.props.favorites, selectedCity]
-    // localStorage.setItem('favorites', JSON.stringify(favorites))
+
     LocalStorageService.set('favorites', favorites)
     changeFavorites(favorites)
   }

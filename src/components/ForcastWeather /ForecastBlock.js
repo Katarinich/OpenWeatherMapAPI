@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import ForecastForToday from './ForecastForToday'
-import {periodsDay, degreesIcon, forecastOptions, pressureValue, humidityValue, speedValue} from '../../constants'
 import ForecastWeatherIcon from './ForecastWeatherIcon'
 import ParametrsForecastWeather from './ParametersForecastWeather'
+import {periodsDay, degreesIcon, forecastOptions, pressureValue, humidityValue, speedValue} from '../../constants'
 
 export default class ForecastBlock extends Component {
   render() {

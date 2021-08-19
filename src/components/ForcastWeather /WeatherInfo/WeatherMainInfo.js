@@ -1,9 +1,8 @@
 import React from 'react'
-
 import PropTypes from 'prop-types'
+import SunriseSunset from '../SunriseSunset'
 import ForecastWeatherIcon from '../ForecastWeatherIcon'
 import ParametrsForecastWeather from '../ParametersForecastWeather'
-import SunriseSunset from '../SunriseSunset'
 import { pressureValue, humidityValue, speedValue} from '../../../constants'
 
 export default class WeatherMainInfo extends React.Component {

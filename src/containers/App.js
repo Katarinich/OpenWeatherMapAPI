@@ -1,13 +1,11 @@
+import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-
-import * as weatherActions from '../store/weatherByCity/actions'
 import * as cityActions from '../store/city/actions'
-
 import SearchBar from '../components/SearchBar/SearchBar'
-import WeatherInfo from '../components/ForcastWeather /WeatherInfo/WeatherInfo'
+import * as weatherActions from '../store/weatherByCity/actions'
 import ForecastInfo from '../components/ForcastWeather /ForecastInfo'
+import WeatherInfo from '../components/ForcastWeather /WeatherInfo/WeatherInfo'
 
 class App extends Component {
 

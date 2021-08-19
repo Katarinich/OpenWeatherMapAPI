@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-
-import WeatherInfoHeader from './WeatherInfoHeader'
 import WeatherMainInfo from './WeatherMainInfo'
+import WeatherInfoHeader from './WeatherInfoHeader'
 
 export default class WeatherInfo extends Component {
   render() {

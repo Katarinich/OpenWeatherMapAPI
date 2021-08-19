@@ -1,6 +1,5 @@
-import fetch from 'isomorphic-fetch'
-
 import * as types from './type'
+import fetch from 'isomorphic-fetch'
 
 function setSelectedCity(city) {
   return {
