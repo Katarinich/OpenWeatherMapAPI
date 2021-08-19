@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ForecastForToday from './ForecastForToday'
 import ForecastWeatherIcon from './ForecastWeatherIcon'
 import ParametrsForecastWeather from './ParametersForecastWeather'
-import {periodsDay, degreesIcon, forecastOptions, pressureValue, humidityValue, speedValue} from '../../constants'
+import {periodsDay, degreesIcon, forecastOptions, pressureValue, humidityValue, speedValue, typeDate} from '../../constants'
 
 export default class ForecastBlock extends Component {
   render() {
@@ -12,7 +12,7 @@ export default class ForecastBlock extends Component {
     return (
       <div className='info-block'>
         <div className='forecast-header'>
-          {new Date(weather.dt * 1000).toLocaleString('en-US', forecastOptions)}
+          {new Date(weather.dt * 1000).toLocaleString(typeDate, forecastOptions)}
         </div>
         <div className='forecast-block-content-wrapper-left'>
           <ForecastWeatherIcon
