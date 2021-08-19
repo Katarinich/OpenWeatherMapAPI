@@ -5,8 +5,8 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
 
-import configureStore from './store/configureStore'
-import App from './containers/App'
+import configureStore from './src/store'
+import App from './src/containers/App'
 
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
@@ -26,8 +26,8 @@ app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'))
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'))
 app.use('/js', express.static(__dirname + '/node_modules/typeahead.js/dist'))
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'))
-app.use('/css', express.static(__dirname + '/static/css'))
-app.use('/img', express.static(__dirname + '/static/images'))
+app.use('/css', express.static(__dirname + '/src/static/css'))
+app.use('/img', express.static(__dirname + '/src/static/images'))
 
 app.get('/api/cities', function(req, res) {
   res.sendFile(__dirname + '/city.list.json')
