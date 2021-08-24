@@ -1,47 +1,100 @@
+import PropTypes from 'prop-types'
+import Dropdowns from './Dropdown'
 import React, { Component } from 'react'
-import Input from './Input'
-import Dropdown from './Dropdown'
+import Autosuggest from 'react-autosuggest';
+import { Button, Dropdown } from 'react-bootstrap';
+import searchMatches from '../../utils/searchMatches'
 
 export default class SearchBar extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      suggestions: []
+    }
     this.handleClick = this.handleClick.bind(this)
   }
 
   handleClick(city) {
-    const { onClick } = this.props
-    document.getElementById('city').value = city.name
+    const { onSelect } = this.props
 
-    onClick()
+    onSelect(city)
   }
 
+  renderSuggestion(suggestion) {
+    return (
+      <div className={'input-list_item'}>
+        {suggestion.name} {suggestion.country}
+      </div>
+    )
+  }
+
+  renderSuggestionUl({ containerProps, children }) {
+    return (
+      <div {...containerProps} className={'input-list'}>
+        {children}
+      </div>
+    )
+  }
+  
   render(){
-    const { onClick, cities, onSelect, selectedCity, favorites } = this.props
+    const {  
+      onClick,
+      cities,
+      onSelect,
+      selectedCity,
+      favorites,
+      onChange,
+      inputValue
+    } = this.props
     let self = this
+
     let favoritesList = favorites.map(function (city) {
       return (
         <li key={city.id}>
-          <a href="#" onClick={() => self.handleClick(city)}>
-            {city.name}
-          </a>
+          <Dropdown.Item onClick={() => self.handleClick(city)}>
+              {city.name}
+          </Dropdown.Item>
         </li>
       );
     });
 
-    return(
-      <div className="search input-group">
-        <Dropdown
-        favoritesList={favoritesList}
-        selectedCity={selectedCity}
+    const inputProps = {
+      placeholder: 'Search for...',
+      value: inputValue,
+      onChange: (e) => onChange(e.target.value),
+      className: 'input'
+    }
+
+  return (
+    <div className="search input-group">
+      <Dropdowns 
+      favoritesList={favoritesList}
+       selectedCity={selectedCity}
+       />
+      <Autosuggest
+          suggestions={searchMatches(this.state.suggestions, inputValue, 3)}
+          onSuggestionsFetchRequested={() => this.setState({ suggestions: cities.slice() })}
+          onSuggestionsClearRequested={() => this.setState({ suggestions: [] })}
+          getSuggestionValue={(suggestions) => suggestions.name}
+          onSuggestionSelected={(_, { suggestion }) => onSelect(suggestion)}
+          renderSuggestion={this.renderSuggestion}
+          renderSuggestionsContainer={this.renderSuggestionUl}
+          inputProps={inputProps}
         />
-        <Input 
-        cities={ cities }
-         onSelect={ city => onSelect(city) }
-         />
-        <span className="input-group-btn">
-          <button className="btn btn-default" type="button" onClick={ () => onClick() }>{'Search'}</button>
-        </span>
-      </div>
-    )
+      <Button variant="outline-secondary" onClick={() => onClick()}>
+        {'Search'}
+      </Button>
+    </div>
+  );
   }
+}
+
+SearchBar.propTypes = {
+  cities: PropTypes.array,
+  favorites: PropTypes.array,
+  inputValue: PropTypes.string,
+  selectedCity: PropTypes.object,
+  onChange: PropTypes.func,
+  onClick: PropTypes.func,
+  onSelect: PropTypes.func
 }

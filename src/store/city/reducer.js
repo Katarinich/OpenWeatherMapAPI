@@ -5,6 +5,7 @@ export function city(state = {}, action){
       case types.SELECT_CITY:
         return {
           ...state,
+          inputValue: action.city.name,
           selectedCity: action.city
         }
       case types.REQUEST_CITIES:
@@ -23,6 +24,11 @@ export function city(state = {}, action){
         return {
           ...state,
           favorites: action.favorites
+        }
+      case types.CHANGE_SEARCH_INPUT:
+        return {
+          ...state,
+          inputValue: action.value
         }
       default:
         return state

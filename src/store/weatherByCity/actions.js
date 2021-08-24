@@ -1,5 +1,4 @@
 import * as types from './type'
-import fetch from 'isomorphic-fetch'
 import { selectCity } from '../city/actions'
 
 function requestWeather(city) {

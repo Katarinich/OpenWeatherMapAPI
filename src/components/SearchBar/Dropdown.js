@@ -1,32 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Dropdown } from 'react-bootstrap';
 
-export default class Dropdown extends React.Component {
+export default class Dropdowns extends React.Component {
+  
   render() {
     const { selectedCity, favoritesList } = this.props
     return (
-      <div className="input-group-btn">
-        <button
-          type="button"
-          className="btn btn-default dropdown-toggle"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
+      <Dropdown id="dropdown-basic-button" className="drop-down input-group-btn">
+        <Dropdown.Toggle className="drop-down_toggle" variant="outline-secondary" id="dropdown-basic">
           {selectedCity ? selectedCity.name + ' ' : ' '}
-          <span className="caret"></span>
-        </button>
-        <ul className="dropdown-menu">
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu className="drop-down_menu">
           {favoritesList}
-          <li role="separator" className="divider"></li>
-          <li>
-            <a>
-              <img src="/img/Favorites-Add.svg" />
+          <Dropdown.Divider />
+          <span>
+              <img src={process.env.PUBLIC_URL + 'images/Favorites-Add.svg'} />
               Add city to favorites by clicking icon by near
-            </a>
-          </li>
-        </ul>
-      </div>
+          </span>
+        </Dropdown.Menu>
+      </Dropdown>
     );
   }
 }

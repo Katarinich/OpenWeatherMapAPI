@@ -1,30 +1,36 @@
+import '../static/css/style.css'
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import * as cityActions from '../store/city/actions'
 import SearchBar from '../components/SearchBar/SearchBar'
 import * as weatherActions from '../store/weatherByCity/actions'
-import ForecastInfo from '../components/ForcastWeather /ForecastInfo'
-import WeatherInfo from '../components/ForcastWeather /WeatherInfo/WeatherInfo'
+import ForecastInfo from '../components/ForcastWeather/ForecastInfo'
+import WeatherInfo from '../components/ForcastWeather/WeatherInfo/WeatherInfo'
 
 class App extends Component {
 
   componentDidMount() {
-    this.props.cityActions.fetchCities()
+    const { fetchCities, loadFavoritesList } = this.props.cityActions
+    fetchCities()
 
-    var favorites = JSON.parse(localStorage.getItem('favorites')) || []
-    this.props.cityActions.loadFavoritesList(favorites)
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || []
+    loadFavoritesList(favorites)
+    this.handleSearch = this.handleSearch.bind(this)
+    this.handleForecast = this.handleForecast.bind(this)
   }
 
   handleSearch() {
-    var { selectedCity } = this.props.city
-    var cityName = document.getElementById('city').value
-    const { fetchWeatherById,  fetchWeatherByName} = this.props.weatherActions
+    let { selectedCity, inputValue } = this.props.city
 
-    if(selectedCity && (selectedCity.name.toLowerCase() != cityName.toLowerCase()))
-      selectedCity = undefined
+    const { fetchWeatherById, fetchWeatherByName } = this.props.weatherActions
 
-    selectedCity ? fetchWeatherById(selectedCity) : fetchWeatherByName(cityName)
+    if (selectedCity !== undefined && selectedCity.name === inputValue) {
+      fetchWeatherById(selectedCity)
+    } else {
+      fetchWeatherByName(inputValue || '')
+    }
   }
 
   handleForecast(e) {
@@ -32,22 +38,26 @@ class App extends Component {
   }
 
   render() {
+    const { cityActions } = this.props
     const { weather, error, forecast } = this.props.weatherByCity
-    const { isFetching, cities, selectedCity, favorites } = this.props.city
+    const { isFetching, cities, selectedCity, favorites, inputValue } = this.props.city
     return (
       <div className="container">
 
         { isFetching &&
-          <img src="/img/loading.gif" className="loading-icon-position"/>
+          <img src="/images/loading.gif" className="loading-icon-position"/>
         }
 
         { !isFetching && cities &&
           <SearchBar
-            cities={ cities }
-            favorites={ favorites }
-            selectedCity={ selectedCity }
-            onClick = { () => this.handleSearch() }
-            onSelect = { city => this.props.cityActions.selectCity(city) } />
+          cities={cities}
+          favorites={favorites}
+          selectedCity={selectedCity}
+          onClick={this.handleSearch}
+          onSelect={cityActions.selectCity}
+          onChange={cityActions.changeSearchInput}
+          inputValue={inputValue || ''}
+          />
         }
 
         { error &&
@@ -76,7 +86,6 @@ class App extends Component {
 
 function mapStateToProps(state) {
   const { city } = state
-
   if(!city.cities) return {
     ...state,
     cities: {

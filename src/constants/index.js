@@ -7,8 +7,6 @@ export const forecastOptions = {
     second: 'numeric'
   }
 
-export const degreesIcon = ' °'
-
 export const periodsDay = {
     day: 'Day',
     night: 'Night',
@@ -19,6 +17,5 @@ export const periodsDay = {
 export const pressureValue = ' hPa'
 export const humidityValue = ' %'
 export const speedValue = ' mps'
-
-
+export const degreesIcon = ' °'
 export const typeDate = 'en-US';

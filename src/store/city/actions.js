@@ -1,5 +1,4 @@
 import * as types from './type'
-import fetch from 'isomorphic-fetch'
 
 function setSelectedCity(city) {
   return {
@@ -45,10 +44,17 @@ function receiveCities(cities) {
   }
 }
 
+export function changeSearchInput(value) {
+  return {
+    type: types.CHANGE_SEARCH_INPUT,
+    value
+  }
+}
+
 export function fetchCities() {
   return dispatch => {
     dispatch(requestCities())
-    return fetch('/api/cities')
+    return fetch('http://localhost:3001/api/cities')
       .then(response => response.json())
       .then(json => dispatch(receiveCities(json)))
   }
