@@ -50,11 +50,10 @@ export default class SearchBar extends Component {
       onChange,
       inputValue,
     } = this.props;
-    const self = this;
 
     const favoritesList = favorites.map((city) => (
       <li key={city.id}>
-        <Dropdown.Item onClick={() => self.handleClick(city)}>
+        <Dropdown.Item onClick={() => this.handleClick(city)}>
           {city.name}
         </Dropdown.Item>
       </li>
@@ -83,7 +82,7 @@ export default class SearchBar extends Component {
           renderSuggestionsContainer={this.renderSuggestionUl}
           inputProps={inputProps}
         />
-        <Button variant="outline-secondary" onClick={() => onClick()}>
+        <Button variant="outline-secondary" onClick={onClick}>
           Search
         </Button>
       </div>
