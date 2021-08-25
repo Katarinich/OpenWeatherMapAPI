@@ -1,7 +1,8 @@
 /* eslint-disable promise/always-return */
 /* eslint-disable eqeqeq */
-import * as types from './type';
-import { selectCity } from '../city/actions';
+import * as types from "./type";
+import { selectCity } from "../city/actions";
+import { apiKey, API_BASE_URL, statusCode } from "../../constants";
 
 function requestWeather(city) {
   return {
@@ -47,10 +48,10 @@ function receiveForecast(city, forecast, days) {
 export function fetchWeatherById(city) {
   return (dispatch) => {
     dispatch(requestWeather(city));
-    return fetch(`http://api.openweathermap.org/data/2.5/weather?id=${city.id}&units=metric&appid=33178d46dea4c98a92d98aa6ea4ebc24`)
+    return fetch(`${API_BASE_URL}/weather?id=${city.id}&units=metric&appid=${apiKey}`)
       .then((response) => response.json())
       .then((json) => {
-        if (json.cod != '200') dispatch(failureWeather(json));
+        if (Number(json.cod) !== statusCode) dispatch(failureWeather(json));
         else dispatch(receiveWeather(city, json));
       });
   };
@@ -59,10 +60,10 @@ export function fetchWeatherById(city) {
 export function fetchWeatherByName(cityName) {
   return (dispatch) => {
     dispatch(requestWeather(cityName));
-    return fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=33178d46dea4c98a92d98aa6ea4ebc24`)
+    return fetch(`${API_BASE_URL}/weather?q=${cityName}&units=metric&appid=${apiKey}`)
       .then((response) => response.json())
       .then((json) => {
-        if (json.cod != '200') dispatch(failureWeather(json));
+        if (Number(json.cod) !== statusCode) dispatch(failureWeather(json));
         else {
           const city = {
             id: json.id,
@@ -81,10 +82,10 @@ export function fetchWeatherByName(cityName) {
 export function fetchForecast(city, days) {
   return (dispatch) => {
     dispatch(requestForecast(city, days));
-    return fetch(`http://api.openweathermap.org/data/2.5/forecast/daily?id=${city.id}&cnt=${days}&units=metric&appid=33178d46dea4c98a92d98aa6ea4ebc24`)
+    return fetch(`${API_BASE_URL}/forecast/daily?id=${city.id}&cnt=${days}&units=metric&appid=${apiKey}`)
       .then((response) => response.json())
       .then((json) => {
-        if (json.cod != '200') dispatch(failureWeather(json));
+        if (Number(json.cod) !== statusCode) dispatch(failureWeather(json));
         else dispatch(receiveForecast(city, json, days));
       });
   };
