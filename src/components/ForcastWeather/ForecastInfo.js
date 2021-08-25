@@ -1,24 +1,41 @@
-import React, { Component } from 'react'
-import ForecastBlock from './ForecastBlock'
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import ForecastBlock from "./ForecastBlock";
 
 export default class ForecastInfo extends Component {
   render() {
-    const { cityName, onClick } = this.props
+    const { cityName, onClick, days } = this.props;
 
-    var days = this.props.days.map(function(day) {
-      return <ForecastBlock key={day.dt} weather={ day } />
-    })
+    const setDays = days.map((day) => (
+      <ForecastBlock key={day.dt} weather={day} />
+    ));
 
-    return(
+    return (
       <div className="forecast-info">
         <div className="info-block block-border">
-          <h1 className="header"> Forecast for { days.length } days in { cityName }</h1>
-            <div className="info-block-header-right">
-              <a href="#" onClick={ () => onClick() }>{'Back to current weather'}</a>
-            </div>
+          <h1 className="header">
+            Forecast for
+            {' '}
+            {days.length}
+            {' '}
+            days in
+            {' '}
+            {cityName}
+          </h1>
+          <div className="info-block-header-right">
+            <button type="button" onClick={onClick}>
+              Back to current weather
+            </button>
+          </div>
         </div>
-        { days }
+        {setDays}
       </div>
-    )
+    );
   }
 }
+
+ForecastInfo.propTypes = {
+  cityName: PropTypes.string,
+  onClick: PropTypes.func,
+  days: PropTypes.array,
+};

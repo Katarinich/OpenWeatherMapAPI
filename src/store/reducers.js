@@ -1,9 +1,8 @@
-import {city} from './city/reducer'
-import { combineReducers } from 'redux'
-import {weatherByCity} from './weatherByCity/reducer'
+import { combineReducers } from "redux";
+import city from "./city/reducer";
+import weatherByCity from "./weatherByCity/reducer";
 
 export default combineReducers({
-    city,
-    weatherByCity
-  })
-  
+  city,
+  weatherByCity,
+});

@@ -1,4 +1,3 @@
-
 import { applyMiddleware, createStore, compose } from 'redux';
 import thunk from 'redux-thunk';
 
@@ -10,6 +9,6 @@ export default function configureStore(initialStore) {
   return createStore(
     reducers,
     initialStore,
-    composeEnhancers(applyMiddleware(thunk))
+    composeEnhancers(applyMiddleware(thunk)),
   );
 }

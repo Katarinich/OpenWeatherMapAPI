@@ -1,61 +1,61 @@
-import * as types from './type'
+/* eslint-disable no-param-reassign */
+
+import * as types from './type';
 
 function setSelectedCity(city) {
   return {
     type: types.SELECT_CITY,
-    city
-  }
+    city,
+  };
 }
 
 export function selectCity(city, cities) {
-  return dispatch => {
-    if(typeof city == 'string')
-      city = cities.find(x => x.name.toLowerCase() == city.toLowerCase())
+  return (dispatch) => {
+    if (typeof city === 'string') city = cities.find((x) => x.name.toLowerCase() === city.toLowerCase());
 
-    dispatch(setSelectedCity(city))
-  }
+    dispatch(setSelectedCity(city));
+  };
 }
 
 export function changeFavorites(favorites) {
   return {
     type: types.CHANGE_FAVORITES,
-    favorites
-  }
+    favorites,
+  };
 }
 
-export function loadFavoritesList(favorites)
-{
+export function loadFavoritesList(favorites) {
   return {
     type: types.LOAD_FAVORITES_LIST,
-    favorites
-  }
+    favorites,
+  };
 }
 
 function requestCities() {
   return {
-    type: types.REQUEST_CITIES
-  }
+    type: types.REQUEST_CITIES,
+  };
 }
 
 function receiveCities(cities) {
   return {
     type: types.RECEIVE_CITIES,
-    cities
-  }
+    cities,
+  };
 }
 
 export function changeSearchInput(value) {
   return {
     type: types.CHANGE_SEARCH_INPUT,
-    value
-  }
+    value,
+  };
 }
 
 export function fetchCities() {
-  return dispatch => {
-    dispatch(requestCities())
+  return (dispatch) => {
+    dispatch(requestCities());
     return fetch('http://localhost:3001/api/cities')
-      .then(response => response.json())
-      .then(json => dispatch(receiveCities(json)))
-  }
+      .then((response) => response.json())
+      .then((json) => dispatch(receiveCities(json)));
+  };
 }
