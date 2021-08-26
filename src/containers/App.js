@@ -1,5 +1,6 @@
 /* eslint-disable no-shadow */
 import '../static/css/style.css';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
@@ -113,5 +114,15 @@ function mapDispatchToProps(dispatch) {
     cityActions: bindActionCreators(cityActions, dispatch),
   };
 }
+
+App.propTypes = {
+  city: PropTypes.object,
+  cityActions: PropTypes.object,
+  weatherActions: PropTypes.object,
+  weatherByCity: PropTypes.object,
+  weather: PropTypes.object,
+  forecast: PropTypes.object,
+  error: PropTypes.string,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
