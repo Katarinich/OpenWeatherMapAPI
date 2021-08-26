@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-
 import * as types from './type';
 
 function setSelectedCity(city) {

@@ -1,6 +1,4 @@
-/* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-shadow */
-/* eslint-disable react/prop-types */
 import '../static/css/style.css';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
@@ -14,7 +12,8 @@ import WeatherInfo from '../components/ForcastWeather/WeatherInfo/WeatherInfo';
 
 class App extends Component {
   componentDidMount() {
-    const { fetchCities, loadFavoritesList } = this.props.cityActions;
+    const { cityActions } = this.props;
+    const { fetchCities, loadFavoritesList } = cityActions;
     fetchCities();
 
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
@@ -24,9 +23,10 @@ class App extends Component {
   }
 
   handleSearch() {
-    const { selectedCity, inputValue } = this.props.city;
+    const { city, weatherActions } = this.props;
+    const { selectedCity, inputValue } = city;
 
-    const { fetchWeatherById, fetchWeatherByName } = this.props.weatherActions;
+    const { fetchWeatherById, fetchWeatherByName } = weatherActions;
 
     if (selectedCity !== undefined && selectedCity.name === inputValue) {
       fetchWeatherById(selectedCity);
@@ -36,15 +36,16 @@ class App extends Component {
   }
 
   handleForecast(e) {
-    this.props.weatherActions.fetchForecast(this.props.city.selectedCity, e.target.id);
+    const { weatherActions, city } = this.props;
+    weatherActions.fetchForecast(city.selectedCity, e.target.id);
   }
 
   render() {
-    const { cityActions } = this.props;
-    const { weather, error, forecast } = this.props.weatherByCity;
+    const { cityActions, city, weatherByCity } = this.props;
+    const { weather, error, forecast } = weatherByCity;
     const {
       isFetching, cities, selectedCity, favorites, inputValue,
-    } = this.props.city;
+    } = city;
     return (
       <div className="container">
 
