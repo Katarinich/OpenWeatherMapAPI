@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import * as types from './type';
 
 function setSelectedCity(city) {
@@ -9,9 +8,10 @@ function setSelectedCity(city) {
 }
 
 export function selectCity(city, cities) {
+  if (typeof city === 'string') {
+    cities.find((x) => x.name.toLowerCase() === city.toLowerCase());
+  }
   return (dispatch) => {
-    if (typeof city === 'string') city = cities.find((x) => x.name.toLowerCase() === city.toLowerCase());
-
     dispatch(setSelectedCity(city));
   };
 }
