@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Translation } from "react-i18next";
 import React, { Component } from "react";
 import ForecastBlock from "./ForecastBlock";
 
@@ -11,25 +12,26 @@ export default class ForecastInfo extends Component {
     ));
 
     return (
-      <div className="forecast-info">
-        <div className="info-block block-border">
-          <h1 className="header">
-            Forecast for
-            {' '}
-            {days.length}
-            {' '}
-            days in
-            {' '}
-            {cityName}
-          </h1>
-          <div className="info-block-header-right">
-            <button type="button" onClick={onClick}>
-              Back to current weather
-            </button>
+      <Translation>
+        {(t) => (
+          <div className="forecast-info">
+            <div className="info-block block-border">
+              <h1 className="header">
+                {t("ForecastFor")}
+                {days.length}
+                {days.length > 4 ? `${t("DaysIn")}` : `${t("DayIn")}`}
+                {cityName}
+              </h1>
+              <div className="info-block-header-right">
+                <button type="button" onClick={onClick}>
+                  {t("BackToCurrentWeather")}
+                </button>
+              </div>
+            </div>
+            {setDays}
           </div>
-        </div>
-        {setDays}
-      </div>
+        )}
+      </Translation>
     );
   }
 }

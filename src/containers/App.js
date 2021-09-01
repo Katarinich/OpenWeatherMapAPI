@@ -1,15 +1,16 @@
 /* eslint-disable no-shadow */
-import '../static/css/style.css';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import * as cityActions from '../store/city/actions';
-import SearchBar from '../components/SearchBar/SearchBar';
-import * as weatherActions from '../store/weatherByCity/actions';
-import ForecastInfo from '../components/ForcastWeather/ForecastInfo';
-import WeatherInfo from '../components/ForcastWeather/WeatherInfo/WeatherInfo';
+import { Translation } from "react-i18next";
+import "../static/css/style.css";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import React, { Component } from "react";
+import { bindActionCreators } from "redux";
+import "bootstrap/dist/css/bootstrap.min.css";
+import * as cityActions from "../store/city/actions";
+import SearchBar from "../components/SearchBar/SearchBar";
+import * as weatherActions from "../store/weatherByCity/actions";
+import ForecastInfo from "../components/ForcastWeather/ForecastInfo";
+import WeatherInfo from "../components/ForcastWeather/WeatherInfo/WeatherInfo";
 
 class App extends Component {
   componentDidMount() {
@@ -17,7 +18,7 @@ class App extends Component {
     const { fetchCities, loadFavoritesList } = cityActions;
     fetchCities();
 
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
     loadFavoritesList(favorites);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleForecast = this.handleForecast.bind(this);
@@ -32,7 +33,7 @@ class App extends Component {
     if (selectedCity !== undefined && selectedCity.name === inputValue) {
       fetchWeatherById(selectedCity);
     } else {
-      fetchWeatherByName(inputValue || '');
+      fetchWeatherByName(inputValue || "");
     }
   }
 
@@ -48,48 +49,58 @@ class App extends Component {
       isFetching, cities, selectedCity, favorites, inputValue,
     } = city;
     return (
-      <div className="container">
+      <Translation>
+        {(t, { i18n }) => (
+          <div className="container">
+            {isFetching && (
+              <img
+                src="/images/loading.gif"
+                className="loading-icon-position"
+                alt="loading"
+              />
+            )}
 
-        { isFetching
-          && <img src="/images/loading.gif" className="loading-icon-position" alt="loading" />}
+            {!isFetching && cities && (
+              <SearchBar
+                cities={cities}
+                favorites={favorites}
+                selectedCity={selectedCity}
+                onClick={this.handleSearch}
+                onSelect={cityActions.selectCity}
+                onChange={cityActions.changeSearchInput}
+                inputValue={inputValue || ""}
+                onLanguageChange={(lang) => i18n.changeLanguage(lang)}
+              />
+            )}
 
-        { !isFetching && cities
-          && (
-          <SearchBar
-            cities={cities}
-            favorites={favorites}
-            selectedCity={selectedCity}
-            onClick={this.handleSearch}
-            onSelect={cityActions.selectCity}
-            onChange={cityActions.changeSearchInput}
-            inputValue={inputValue || ''}
-          />
-          )}
+            {error && (
+              <div className="alert alert-danger alert-margin" role="alert">
+                {error}
+              </div>
+            )}
 
-        { error
-          && <div className="alert alert-danger alert-margin" role="alert">{ error }</div>}
+            {weather && (
+              <WeatherInfo
+                weather={weather}
+                selectedCity={selectedCity}
+                favorites={favorites}
+                changeFavorites={cityActions.changeFavorites}
+                onClick={(e) => this.handleForecast(e)}
+                onLanguageChange={(lang) => i18n.changeLanguage(lang)}
+              />
+            )}
 
-        { weather
-          && (
-          <WeatherInfo
-            weather={weather}
-            selectedCity={selectedCity}
-            favorites={favorites}
-            changeFavorites={cityActions.changeFavorites}
-            onClick={(e) => this.handleForecast(e)}
-          />
-          )}
-
-        { forecast
-          && (
-          <ForecastInfo
-            days={forecast.list}
-            cityName={forecast.city.name}
-            onClick={() => this.handleSearch()}
-          />
-          )}
-
-      </div>
+            {forecast && (
+              <ForecastInfo
+                days={forecast.list}
+                cityName={forecast.city.name}
+                onClick={() => this.handleSearch()}
+                onLanguageChange={(lang) => i18n.changeLanguage(lang)}
+              />
+            )}
+          </div>
+        )}
+      </Translation>
     );
   }
 }

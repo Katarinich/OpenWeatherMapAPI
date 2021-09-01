@@ -1,0 +1,13 @@
+{
+  "Search": "Поиск",
+  "DropdownText": "Добавьте город в избранное, нажав на иконку",
+  "ForecastFor":"Погода на ",
+  "DayIn": " дня в ",
+  "DaysIn": " дней в ",
+  "BackToCurrentWeather": "Вернуться к текущей погоде",
+  "day": "дня",
+  "days": "дней",
+  "Forecast": "Погода на: ",
+  "footer": "Демо дня <2>Phrase blog</2> статьи.<5/>Создана с помощью React, i18next, and Bulma.",
+  "typeDate": "ru-RU"
+}
