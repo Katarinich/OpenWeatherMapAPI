@@ -4,18 +4,20 @@ import * as types from "./type";
 import { selectCity } from "../city/actions";
 import { apiKey, API_BASE_URL, statusCode } from "../../constants";
 
-function requestWeather(city) {
+function requestWeather(city, lg) {
   return {
     type: types.REQUEST_WEATHER,
     city,
+    lg,
   };
 }
 
-function receiveWeather(city, weather) {
+function receiveWeather(city, weather, lg) {
   return {
     type: types.RECEIVE_WEATHER,
     city,
     weather,
+    lg,
     receivedAt: Date.now(),
   };
 }
@@ -27,32 +29,34 @@ function failureWeather(error) {
   };
 }
 
-function requestForecast(city, days) {
+function requestForecast(city, days, lg) {
   return {
     type: types.REQUEST_FORECAST,
     city,
     days,
+    lg,
   };
 }
 
-function receiveForecast(city, forecast, days) {
+function receiveForecast(city, forecast, days, lg) {
   return {
     type: types.RECEIVE_FORECAST,
     city,
     forecast,
     days,
+    lg,
     receivedAt: Date.now(),
   };
 }
 
-export function fetchWeatherById(city) {
+export function fetchWeatherById(city, lg) {
   return (dispatch) => {
-    dispatch(requestWeather(city));
-    return fetch(`${API_BASE_URL}/weather?id=${city.id}&units=metric&appid=${apiKey}`)
+    dispatch(requestWeather(city, lg));
+    return fetch(`${API_BASE_URL}/weather?id=${city.id}&units=metric&lang=${lg}&appid=${apiKey}`)
       .then((response) => response.json())
       .then((json) => {
         if (Number(json.cod) !== statusCode) dispatch(failureWeather(json));
-        else dispatch(receiveWeather(city, json));
+        else dispatch(receiveWeather(city, json, lg));
       });
   };
 }
@@ -79,14 +83,14 @@ export function fetchWeatherByName(cityName) {
   };
 }
 
-export function fetchForecast(city, days) {
+export function fetchForecast(city, days, lg) {
   return (dispatch) => {
-    dispatch(requestForecast(city, days));
-    return fetch(`${API_BASE_URL}/forecast/daily?id=${city.id}&cnt=${days}&units=metric&appid=${apiKey}`)
+    dispatch(requestForecast(city, days, lg));
+    return fetch(`${API_BASE_URL}/forecast/daily?id=${city.id}&cnt=${days}&units=metric&lang=${lg}&appid=${apiKey}`)
       .then((response) => response.json())
       .then((json) => {
         if (Number(json.cod) !== statusCode) dispatch(failureWeather(json));
-        else dispatch(receiveForecast(city, json, days));
+        else dispatch(receiveForecast(city, json, days, lg));
       });
   };
 }

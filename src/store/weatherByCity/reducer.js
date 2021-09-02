@@ -19,6 +19,7 @@ export default function weatherByCity(state = {
         isFetching: false,
         forecast: action.forecast,
         days: action.days,
+        lg: action.lg,
       };
     case types.FAILURE_WEATHER:
       return {

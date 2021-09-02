@@ -5,6 +5,8 @@ import ForecastForToday from "./ForecastForToday";
 import ForecastWeatherIcon from "./ForecastWeatherIcon";
 import ParametrsForecastWeather from "./ParametersForecastWeather";
 import {
+  typeDateRU,
+  periodsDayRu,
   periodsDay,
   degreesIcon,
   forecastOptions,
@@ -21,7 +23,6 @@ export default class ForecastBlock extends Component {
     return (
       <Translation>
         {(t) => (
-
           <div className="info-block">
             <div className="forecast-header">
               {new Date(weather.dt * 1000).toLocaleString(
@@ -52,19 +53,35 @@ export default class ForecastBlock extends Component {
             <div className="forecast-block-content-wrapper-right">
               <ForecastForToday
                 value={Math.round(weather.temp.night) + degreesIcon}
-                time={periodsDay.night}
+                time={
+                  `${t("typeDate")}` === typeDateRU
+                    ? periodsDayRu.night
+                    : periodsDay.night
+                }
               />
               <ForecastForToday
                 value={Math.round(weather.temp.morn) + degreesIcon}
-                time={periodsDay.morning}
+                time={
+                  `${t("typeDate")}` === typeDateRU
+                    ? periodsDayRu.morning
+                    : periodsDay.morning
+                }
               />
               <ForecastForToday
                 value={Math.round(weather.temp.day) + degreesIcon}
-                time={periodsDay.day}
+                time={
+                  `${t("typeDate")}` === typeDateRU
+                    ? periodsDayRu.day
+                    : periodsDay.day
+                }
               />
               <ForecastForToday
                 value={Math.round(weather.temp.eve) + degreesIcon}
-                time={periodsDay.evening}
+                time={
+                  `${t("typeDate")}` === typeDateRU
+                    ? periodsDayRu.evening
+                    : periodsDay.evening
+                }
               />
             </div>
           </div>

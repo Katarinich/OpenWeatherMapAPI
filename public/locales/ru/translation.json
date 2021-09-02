@@ -8,6 +8,5 @@
   "day": "дня",
   "days": "дней",
   "Forecast": "Погода на: ",
-  "footer": "Демо дня <2>Phrase blog</2> статьи.<5/>Создана с помощью React, i18next, and Bulma.",
   "typeDate": "ru-RU"
 }

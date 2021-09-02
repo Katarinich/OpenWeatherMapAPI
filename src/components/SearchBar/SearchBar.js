@@ -8,6 +8,7 @@ import { Button, Dropdown } from 'react-bootstrap';
 import Dropdowns from './Dropdown';
 import searchMatches from '../../utils/searchMatches';
 import LanguageSwitcher from './LanguageSwitcher';
+import i18next from '../../services/i18n';
 
 export default class SearchBar extends Component {
   constructor(props) {
@@ -47,6 +48,7 @@ export default class SearchBar extends Component {
       onClick,
       cities,
       onSelect,
+      onClickLanguage,
       selectedCity,
       favorites,
       onChange,
@@ -63,7 +65,7 @@ export default class SearchBar extends Component {
     ));
 
     const inputProps = {
-      placeholder: "Введите город",
+      placeholder: i18next.language === 'en' ? "Enter the city" : "Введите город",
       value: inputValue,
       onChange: (e) => onChange(e.target.value),
       className: 'input',
@@ -90,7 +92,10 @@ export default class SearchBar extends Component {
             <Button className="asd" variant="outline-secondary" onClick={onClick}>
               {t("Search")}
             </Button>
-            <LanguageSwitcher onChange={onLanguageChange} />
+            <LanguageSwitcher
+              onClickLanguage={onClickLanguage}
+              onChange={onLanguageChange}
+            />
           </div>
         )}
       </Translation>
@@ -107,4 +112,5 @@ SearchBar.propTypes = {
   onClick: PropTypes.func,
   onSelect: PropTypes.func,
   onLanguageChange: PropTypes.func,
+  onClickLanguage: PropTypes.func,
 };

@@ -11,6 +11,7 @@ import SearchBar from "../components/SearchBar/SearchBar";
 import * as weatherActions from "../store/weatherByCity/actions";
 import ForecastInfo from "../components/ForcastWeather/ForecastInfo";
 import WeatherInfo from "../components/ForcastWeather/WeatherInfo/WeatherInfo";
+import i18next from '../services/i18n';
 
 class App extends Component {
   componentDidMount() {
@@ -31,15 +32,27 @@ class App extends Component {
     const { fetchWeatherById, fetchWeatherByName } = weatherActions;
 
     if (selectedCity !== undefined && selectedCity.name === inputValue) {
-      fetchWeatherById(selectedCity);
+      fetchWeatherById(selectedCity, i18next.language);
     } else {
-      fetchWeatherByName(inputValue || "");
+      fetchWeatherByName(inputValue || "", i18next.language);
     }
   }
 
   handleForecast(e) {
     const { weatherActions, city } = this.props;
-    weatherActions.fetchForecast(city.selectedCity, e.target.id);
+    weatherActions.fetchForecast(city.selectedCity, e.target.id, i18next.language);
+  }
+
+  handleLanguage(e) {
+    const { weatherActions, city, weatherByCity } = this.props;
+    const { weather, forecast } = weatherByCity;
+
+    if (weather) {
+      weatherActions.fetchWeatherById(city.selectedCity, e.target.value);
+    }
+    if (forecast) {
+      weatherActions.fetchForecast(city.selectedCity, forecast.cnt, e.target.value);
+    }
   }
 
   render() {
@@ -70,6 +83,10 @@ class App extends Component {
                 onChange={cityActions.changeSearchInput}
                 inputValue={inputValue || ""}
                 onLanguageChange={(lang) => i18n.changeLanguage(lang)}
+                onClickLanguage={
+                  (forecast && ((e) => this.handleLanguage(e)))
+                  || (weather && ((e) => this.handleLanguage(e)))
+                }
               />
             )}
 
