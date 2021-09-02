@@ -1,58 +1,65 @@
 {
-  "name": "OpenWeatherMapAPI",
-  "version": "1.0.0",
-  "description": "OpenWeatherMap API",
-  "main": "index.js",
-  "scripts": {
-    "start": "node server.babel.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Katarinich/OpenWeatherMapAPI.git"
-  },
-  "author": "Katarina Chirich",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Katarinich/OpenWeatherMapAPI/issues"
-  },
-  "homepage": "https://github.com/Katarinich/OpenWeatherMapAPI#readme",
-  "dependencies": {
-    "babel-polyfill": "^6.7.4",
-    "babel-runtime": "^6.6.1",
-    "body-parser": "^1.15.0",
-    "bootstrap": "^3.3.6",
-    "es6-promise": "^3.1.2",
-    "handlebars": "^4.0.5",
-    "isomorphic-fetch": "^2.2.1",
-    "jquery": "^2.2.4",
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0",
-    "react-redux": "^4.4.1",
-    "redux": "^3.3.1",
-    "redux-thunk": "^2.0.1",
-    "typeahead.js": "^0.11.1"
-  },
-  "devDependencies": {
-    "autoprefix": "^0.1.4",
-    "autoprefixer": "^6.3.6",
-    "babel-core": "^6.7.6",
-    "babel-eslint": "^6.0.2",
-    "babel-loader": "^6.2.4",
-    "babel-plugin-transform-runtime": "^6.7.5",
-    "babel-preset-es2015": "^6.6.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "eslint": "^2.7.0",
-    "eslint-loader": "^1.3.0",
-    "eslint-plugin-react": "^4.3.0",
-    "express": "^4.13.4",
-    "postcss-loader": "^0.8.2",
-    "precss": "^1.4.0",
-    "react-hot-loader": "^1.3.0",
-    "redux-logger": "^2.6.1",
-    "style-loader": "^0.13.1",
-    "webpack": "^1.12.14",
-    "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.10.0"
-  }
+    "name": "OpenWeatherMapAPI",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@testing-library/jest-dom": "^5.11.4",
+        "@testing-library/react": "^11.1.0",
+        "@testing-library/user-event": "^12.1.10",
+        "bootstrap": "^5.1.0",
+        "prop-types": "^15.7.2",
+        "react": "^17.0.2",
+        "react-autosuggest": "^10.1.0",
+        "react-bootstrap": "^1.6.1",
+        "react-dom": "^17.0.2",
+        "react-redux": "^7.2.4",
+        "react-scripts": "4.0.3",
+        "react-select": "^4.3.1",
+        "redux": "^4.1.1",
+        "redux-thunk": "^2.3.0",
+        "web-vitals": "^1.0.1",
+        "i18next": "^19.7.0",
+        "i18next-browser-languagedetector": "^6.0.1",
+        "i18next-http-backend": "^1.0.18",
+        "react-i18next": "^11.7.1"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "json-server": "node server.js",
+        "lint": "eslint ./src --fix"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@types/node": "^14.0.18",
+        "eslint": "^7.32.0",
+        "eslint-config-airbnb": "^18.2.1",
+        "eslint-plugin-jsx-a11y": "^6.4.1",
+        "eslint-plugin-no-loops": "^0.3.0",
+        "eslint-plugin-no-use-extend-native": "^0.5.0",
+        "eslint-plugin-optimize-regex": "^1.2.1",
+        "eslint-plugin-promise": "^5.1.0",
+        "eslint-plugin-react": "^7.24.0",
+        "eslint-plugin-sonarjs": "^0.10.0",
+        "json-server": "^0.16.3"
+    }
 }
