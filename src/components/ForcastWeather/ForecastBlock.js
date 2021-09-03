@@ -11,6 +11,8 @@ import {
   degreesIcon,
   forecastOptions,
   pressureValue,
+  pressureValueRU,
+  speedValueRU,
   humidityValue,
   speedValue,
 } from "../../constants";
@@ -37,7 +39,7 @@ export default class ForecastBlock extends Component {
               />
               <div className="info-block-additional info-block-additional-second">
                 <ParametrsForecastWeather
-                  description={weather.pressure + pressureValue}
+                  description={`${t("typeDate")}` === typeDateRU ? weather.pressure + pressureValueRU : weather.pressure + pressureValue}
                   src="/images/Pressure.svg"
                 />
                 <ParametrsForecastWeather
@@ -45,7 +47,7 @@ export default class ForecastBlock extends Component {
                   src="/images/Humidity.svg"
                 />
                 <ParametrsForecastWeather
-                  description={weather.speed + speedValue}
+                  description={`${t("typeDate")}` === typeDateRU ? weather.speed + speedValueRU : weather.speed + speedValue}
                   src="/images/Wind.svg"
                 />
               </div>

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Translation } from "react-i18next";
 import { supportedLanguages } from "../../config/i18n";
-import { languageCodeOnly } from "../../services/i18n";
+// import { languageCodeOnly } from "../../services/i18n";
 
 class LanguageSwitcher extends React.Component {
   render() {
@@ -16,7 +16,7 @@ class LanguageSwitcher extends React.Component {
               className="select"
               type="button"
               id="dropdown-basic"
-              value={languageCodeOnly(i18n.language)}
+              value={i18n.language}
               onChange={(e) => onChange(e.target.value)}
               onClick={onClickLanguage}
             >

@@ -22,8 +22,10 @@ export const periodsDayRu = {
 };
 
 export const pressureValue = " hPa";
+export const pressureValueRU = " гПа";
 export const humidityValue = " %";
 export const speedValue = " mps";
+export const speedValueRU = " м/c";
 export const degreesIcon = " °";
 export const typeDate = "en-US";
 export const typeDateRU = "ru-RU";

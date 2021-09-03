@@ -102,7 +102,7 @@ class App extends Component {
                 selectedCity={selectedCity}
                 favorites={favorites}
                 changeFavorites={cityActions.changeFavorites}
-                onClick={(e) => this.handleForecast(e)}
+                onClick={this.handleForecast}
                 onLanguageChange={(lang) => i18n.changeLanguage(lang)}
               />
             )}

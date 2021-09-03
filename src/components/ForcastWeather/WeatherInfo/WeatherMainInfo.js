@@ -9,6 +9,9 @@ import {
   pressureValue,
   humidityValue,
   speedValue,
+  typeDateRU,
+  pressureValueRU,
+  speedValueRU,
 } from "../../../constants";
 
 export default class WeatherMainInfo extends React.Component {
@@ -17,7 +20,7 @@ export default class WeatherMainInfo extends React.Component {
 
     return (
       <Translation>
-        {() => (
+        {(t) => (
           <div className="info-block-content">
             <div className="info-block-content-wrapper-left">
               <ForecastWeatherIcon
@@ -27,7 +30,7 @@ export default class WeatherMainInfo extends React.Component {
               />
               <div className="info-block-additional info-block-additional-second">
                 <ParametrsForecastWeather
-                  description={weather.main.pressure + pressureValue}
+                  description={`${t("typeDate")}` === typeDateRU ? weather.main.pressure + pressureValueRU : weather.main.pressure + pressureValue}
                   src="/images/Pressure.svg"
                 />
                 <ParametrsForecastWeather
@@ -35,7 +38,7 @@ export default class WeatherMainInfo extends React.Component {
                   src="/images/Humidity.svg"
                 />
                 <ParametrsForecastWeather
-                  description={weather.wind.speed + speedValue}
+                  description={`${t("typeDate")}` === typeDateRU ? weather.wind.speed + speedValueRU : weather.wind.speed + speedValue}
                   src="/images/Wind.svg"
                 />
                 <div className="info-block-additional-item">
