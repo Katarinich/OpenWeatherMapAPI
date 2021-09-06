@@ -1,5 +1,4 @@
 /* eslint-disable no-shadow */
-import { Translation } from "react-i18next";
 import "../static/css/style.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -11,7 +10,7 @@ import SearchBar from "../components/SearchBar/SearchBar";
 import * as weatherActions from "../store/weatherByCity/actions";
 import ForecastInfo from "../components/ForcastWeather/ForecastInfo";
 import WeatherInfo from "../components/ForcastWeather/WeatherInfo/WeatherInfo";
-import i18next from '../services/i18n';
+import i18next from "../services/i18n";
 
 class App extends Component {
   componentDidMount() {
@@ -40,7 +39,11 @@ class App extends Component {
 
   handleForecast(e) {
     const { weatherActions, city } = this.props;
-    weatherActions.fetchForecast(city.selectedCity, e.target.id, i18next.language);
+    weatherActions.fetchForecast(
+      city.selectedCity,
+      e.target.id,
+      i18next.language,
+    );
   }
 
   handleLanguage(e) {
@@ -51,7 +54,11 @@ class App extends Component {
       weatherActions.fetchWeatherById(city.selectedCity, e.target.value);
     }
     if (forecast) {
-      weatherActions.fetchForecast(city.selectedCity, forecast.cnt, e.target.value);
+      weatherActions.fetchForecast(
+        city.selectedCity,
+        forecast.cnt,
+        e.target.value,
+      );
     }
   }
 
@@ -62,62 +69,58 @@ class App extends Component {
       isFetching, cities, selectedCity, favorites, inputValue,
     } = city;
     return (
-      <Translation>
-        {(t, { i18n }) => (
-          <div className="container">
-            {isFetching && (
-              <img
-                src="/images/loading.gif"
-                className="loading-icon-position"
-                alt="loading"
-              />
-            )}
+      <div className="container">
+        {isFetching && (
+          <img
+            src="/images/loading.gif"
+            className="loading-icon-position"
+            alt="loading"
+          />
+        )}
 
-            {!isFetching && cities && (
-              <SearchBar
-                cities={cities}
-                favorites={favorites}
-                selectedCity={selectedCity}
-                onClick={this.handleSearch}
-                onSelect={cityActions.selectCity}
-                onChange={cityActions.changeSearchInput}
-                inputValue={inputValue || ""}
-                onLanguageChange={(lang) => i18n.changeLanguage(lang)}
-                onClickLanguage={
-                  (forecast && ((e) => this.handleLanguage(e)))
-                  || (weather && ((e) => this.handleLanguage(e)))
-                }
-              />
-            )}
+        {!isFetching && cities && (
+          <SearchBar
+            cities={cities}
+            favorites={favorites}
+            selectedCity={selectedCity}
+            onClick={this.handleSearch}
+            onSelect={cityActions.selectCity}
+            onChange={cityActions.changeSearchInput}
+            inputValue={inputValue || ""}
+            onLanguageChange={(lang) => i18next.changeLanguage(lang)}
+            onClickLanguage={
+              (forecast && ((e) => this.handleLanguage(e)))
+              || (weather && ((e) => this.handleLanguage(e)))
+            }
+          />
+        )}
 
-            {error && (
-              <div className="alert alert-danger alert-margin" role="alert">
-                {error}
-              </div>
-            )}
-
-            {weather && (
-              <WeatherInfo
-                weather={weather}
-                selectedCity={selectedCity}
-                favorites={favorites}
-                changeFavorites={cityActions.changeFavorites}
-                onClick={this.handleForecast}
-                onLanguageChange={(lang) => i18n.changeLanguage(lang)}
-              />
-            )}
-
-            {forecast && (
-              <ForecastInfo
-                days={forecast.list}
-                cityName={forecast.city.name}
-                onClick={() => this.handleSearch()}
-                onLanguageChange={(lang) => i18n.changeLanguage(lang)}
-              />
-            )}
+        {error && (
+          <div className="alert alert-danger alert-margin" role="alert">
+            {error}
           </div>
         )}
-      </Translation>
+
+        {weather && (
+          <WeatherInfo
+            weather={weather}
+            selectedCity={selectedCity}
+            favorites={favorites}
+            changeFavorites={cityActions.changeFavorites}
+            onClick={this.handleForecast}
+            onLanguageChange={(lang) => i18next.changeLanguage(lang)}
+          />
+        )}
+
+        {forecast && (
+          <ForecastInfo
+            days={forecast.list}
+            cityName={forecast.city.name}
+            onClick={() => this.handleSearch()}
+            onLanguageChange={(lang) => i18next.changeLanguage(lang)}
+          />
+        )}
+      </div>
     );
   }
 }

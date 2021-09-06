@@ -1,16 +1,15 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/destructuring-assignment */
 import PropTypes from 'prop-types';
-import { Translation } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import React, { Component } from 'react';
 import Autosuggest from 'react-autosuggest';
 import { Button, Dropdown } from 'react-bootstrap';
 import Dropdowns from './Dropdown';
 import searchMatches from '../../utils/searchMatches';
 import LanguageSwitcher from './LanguageSwitcher';
-import i18next from '../../services/i18n';
 
-export default class SearchBar extends Component {
+class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,6 +53,7 @@ export default class SearchBar extends Component {
       onChange,
       onLanguageChange,
       inputValue,
+      t,
     } = this.props;
 
     const favoritesList = favorites.map((city) => (
@@ -65,40 +65,36 @@ export default class SearchBar extends Component {
     ));
 
     const inputProps = {
-      placeholder: i18next.language === 'en' ? "Enter the city" : "Введите город",
+      placeholder: t("placeholder"),
       value: inputValue,
       onChange: (e) => onChange(e.target.value),
       className: 'input',
     };
 
     return (
-      <Translation>
-        {(t) => (
-          <div className="search input-group">
-            <Dropdowns
-              favoritesList={favoritesList}
-              selectedCity={selectedCity}
-            />
-            <Autosuggest
-              suggestions={searchMatches(this.state.suggestions, inputValue, 3)}
-              onSuggestionsFetchRequested={() => this.setState({ suggestions: cities.slice() })}
-              onSuggestionsClearRequested={() => this.setState({ suggestions: [] })}
-              getSuggestionValue={(suggestions) => suggestions.name}
-              onSuggestionSelected={(_, { suggestion }) => onSelect(suggestion)}
-              renderSuggestion={this.renderSuggestion}
-              renderSuggestionsContainer={this.renderSuggestionUl}
-              inputProps={inputProps}
-            />
-            <Button className="asd" variant="outline-secondary" onClick={onClick}>
-              {t("Search")}
-            </Button>
-            <LanguageSwitcher
-              onClickLanguage={onClickLanguage}
-              onChange={onLanguageChange}
-            />
-          </div>
-        )}
-      </Translation>
+      <div className="search input-group">
+        <Dropdowns
+          favoritesList={favoritesList}
+          selectedCity={selectedCity}
+        />
+        <Autosuggest
+          suggestions={searchMatches(this.state.suggestions, inputValue, 3)}
+          onSuggestionsFetchRequested={() => this.setState({ suggestions: cities.slice() })}
+          onSuggestionsClearRequested={() => this.setState({ suggestions: [] })}
+          getSuggestionValue={(suggestions) => suggestions.name}
+          onSuggestionSelected={(_, { suggestion }) => onSelect(suggestion)}
+          renderSuggestion={this.renderSuggestion}
+          renderSuggestionsContainer={this.renderSuggestionUl}
+          inputProps={inputProps}
+        />
+        <Button variant="outline-secondary" onClick={onClick}>
+          {t("Search")}
+        </Button>
+        <LanguageSwitcher
+          onClickLanguage={onClickLanguage}
+          onChange={onLanguageChange}
+        />
+      </div>
     );
   }
 }
@@ -113,4 +109,6 @@ SearchBar.propTypes = {
   onSelect: PropTypes.func,
   onLanguageChange: PropTypes.func,
   onClickLanguage: PropTypes.func,
+  t: PropTypes.func,
 };
+export default withTranslation()(SearchBar);
